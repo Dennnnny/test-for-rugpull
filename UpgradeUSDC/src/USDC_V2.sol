@@ -64,12 +64,14 @@ contract USDC_V2 {
   }
 
   function transfer(address _to, uint256 _amount) public inWhitelist {
+    require(_to != address(0), "Invalid address _to");
     require(balances[msg.sender] >= _amount, "you have not much can transfer");
     balances[msg.sender] -= _amount;
     balances[_to] += _amount;
   }
 
   function mint(address _to, uint256 _amount) public {
+    require(_to != address(0), "Invalid address _to");
     if(whitelist[msg.sender]){
       balances[_to] += _amount;
     }else {

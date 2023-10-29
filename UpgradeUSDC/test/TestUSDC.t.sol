@@ -72,6 +72,12 @@ contract TestUSDC is Test {
     usdc_v2.transfer(user1, 1 ether);
     vm.stopPrank();
 
+    // test for _to = address(0)
+    vm.startPrank(user1);
+    vm.expectRevert("Invalid address _to");
+    usdc_v2.transfer(address(0), 1 ether);
+    vm.stopPrank();
+
   }
 
   function testMint() public {
@@ -109,6 +115,13 @@ contract TestUSDC is Test {
     usdc_v2.mint(user2, 3 ether);
 
     assertEq(usdc_v2.balances(user2), 5 ether);
+
+    // test for _to = address(0)
+    vm.startPrank(user1);
+    vm.expectRevert("Invalid address _to");
+    usdc_v2.mint(address(0), 1 ether);
+    vm.stopPrank();
+
   }
 }
 
